@@ -1,29 +1,27 @@
 <idea-plugin version="2">
   <id>com.github.itechbear.clion.cpplint</id>
   <name>CLion-cpplint</name>
-  <version>1.0</version>
+  <version>1.0.1</version>
   <vendor email="itechbear@gmail.com" url="https://github.com/itechbear/clion-cpplint">github.com</vendor>
 
   <description><![CDATA[
       The first C++ lint plugin for Clion. <br /><br />
+
       Should you like this plugin, please star my github project. Thanks! <br /><br />
-      <b>Features:</b>
-      <ol>
-        <li>Run cpplint.py on the fly when you are editing C++ source code.</li>
-        <li>Highlight corresponding lines with messages about which cpplint.py complains.</li>
-        <li>Cygwin environment is supported as well.</li>
-      </ol>
-      <b>Usage:</b>
-      <ol>
-        <li>Install this plugin.</li>
-        <li>Go to File -> Settings -> Other Settings -> cpplint option, fill in the <b>*absolute*</b> paths of python and cpplint.py</li>
-        <li>Enjoy developing!</li>
-      </ol>
-      <b>Please note:</b>
-      <ol>
-        <li>Sometimes Clion would report exceptions with this plugin. Those exceptions are caused by a delay between the end of the cpplint.py execution and the Clion inspection system. For example, when cpplint.py was run by Clion, it finds a problem at line N. Suddenly, you delet all lines starting from N before the inspection system updates, then Clion would report an exception. I haven't found a good way to work around. If you do, please make a pull request.</li>
-        <li>If you are using cygwin, use cygwin python package and fill with unix-style paths in the option dialog(for example, /usr/bin/python and /home/tools/cpplint.py). </li>
-      </ol>
+
+      <b>Features:</b><br/>
+        Run cpplint.py on the fly when you are editing C++ source code.<br/>
+        Highlight corresponding lines with messages about which cpplint.py complains.<br/>
+        Cygwin environment is supported as well.<br/><br/>
+
+      <b>Usage:</b><br/>
+        Install this plugin.<br/>
+        Go to File -> Settings -> Other Settings -> cpplint option, fill in the <b>*absolute*</b> paths of python and cpplint.py<br/>
+        Enjoy developing!<br/><br/>
+
+      <b>Please note:</b><br/>
+        Sometimes Clion would report exceptions with this plugin. Those exceptions are caused by a delay between the end of the cpplint.py execution and the Clion inspection system. For example, when cpplint.py was run by Clion, it finds a problem at line N. Suddenly, you delet all lines starting from N before the inspection system updates, then Clion would report an exception. I haven't found a good way to work around. If you do, please make a pull request.<br/>
+        If you are using cygwin, use cygwin python package and fill with unix-style paths in the option dialog(for example, /usr/bin/python and /home/tools/cpplint.py).
     ]]></description>
 
   <change-notes><![CDATA[
@@ -32,7 +30,7 @@
   </change-notes>
 
   <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
-  <idea-version since-build="139"/>
+  <idea-version since-build="139.0"/>
 
   <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
        on how to target different products -->
