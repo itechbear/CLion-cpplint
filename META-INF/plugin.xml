@@ -1,0 +1,57 @@
+<idea-plugin version="2">
+  <id>com.github.itechbear.clion.cpplint</id>
+  <name>CLion-cpplint</name>
+  <version>1.0</version>
+  <vendor email="itechbear@gmail.com" url="https://github.com/itechbear/clion-cpplint">github.com</vendor>
+
+  <description><![CDATA[
+      The first C++ lint plugin for Clion. <br /><br />
+      Should you like this plugin, please star my github project. Thanks! <br /><br />
+      <b>Features:</b><br/>
+      <ol>
+        <li>Run cpplint.py on the fly when you are editing C++ source code.</li>
+        <li>Highlight corresponding lines with messages about which cpplint.py complains.</li>
+      </ol>
+      <b>Please note:</b><br />
+      Sometimes Clion would report exceptions with this plugin. Those exceptions are caused by a delay between the end of the cpplint.py execution and the Clion inspection system.
+      For example, when cpplint.py was run by Clion, it finds a problem at line N. Suddenly, you delet all lines starting from N before the inspection system updates, then Clion would report an exception.
+      I haven't found a good way to work around. If you do, please make a pull request.
+    ]]></description>
+
+  <change-notes><![CDATA[
+      Initial commit.
+    ]]>
+  </change-notes>
+
+  <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
+  <idea-version since-build="139"/>
+
+  <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+  <depends>com.intellij.modules.clion</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+      <localInspection implementationClass="com.github.itechbear.clion.cpplint.CpplintInspection"
+              displayName="cpplint inspection" groupName="C++: line" id="CpplintInspection" level="WARNING"
+              enabledByDefault="true"/>
+      <applicationConfigurable instance="com.github.itechbear.clion.cpplint.Option"
+              displayName="cpplint option"/>
+  </extensions>
+
+  <application-components>
+    <!-- Add your application components here -->
+  </application-components>
+
+  <project-components>
+    <!-- Add your project components here -->
+  </project-components>
+
+  <actions>
+    <!-- Add your actions here -->
+  </actions>
+
+</idea-plugin>
