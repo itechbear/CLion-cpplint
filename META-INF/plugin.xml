@@ -2,7 +2,7 @@
   <id>com.github.itechbear.clion.cpplint</id>
   <name>CLion-cpplint</name>
   <version>1.0.1</version>
-  <vendor email="itechbear@gmail.com" url="https://github.com/itechbear/clion-cpplint">github.com</vendor>
+  <vendor email="itechbear@gmail.com" url="https://github.com/itechbear/clion-cpplint">itechbear@github.com</vendor>
 
   <description><![CDATA[
       The first C++ lint plugin for Clion. <br /><br />
