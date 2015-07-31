@@ -60,7 +60,12 @@ public class CpplintInspection extends LocalInspectionTool {
                     continue;
                 }
                 int line_number = Integer.parseInt(matcher.group(1), 10);
-                line_number = line_number > 0 ? (line_number - 1) : 0;
+                int line_count = document.getLineCount();
+                if (0 == line_count) {
+                    continue;
+                }
+                line_number = (line_number >= line_count) ? (line_count - 1) : line_number;
+                line_number = (line_number > 0) ? (line_number - 1) : 0;
                 String error_message = "cpplint: " +  matcher.group(2);
                 String rule_name = matcher.group(3);
                 int warning_level = Integer.parseInt(matcher.group(4), 10);

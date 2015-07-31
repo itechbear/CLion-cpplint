@@ -1,8 +1,8 @@
 <idea-plugin version="2">
   <id>com.github.itechbear.clion.cpplint</id>
   <name>CLion-cpplint</name>
-  <version>1.0.1</version>
-  <vendor email="itechbear@gmail.com" url="https://github.com/itechbear/clion-cpplint">itechbear</vendor>
+  <version>1.0.2</version>
+  <vendor email="itechbear@gmail.com" url="https://github.com/itechbear">itechbear</vendor>
 
   <description><![CDATA[
       The first C++ lint plugin for Clion. <br /><br />
@@ -20,7 +20,6 @@
         Enjoy developing!<br/><br/>
 
       <b>Please note:</b><br/>
-        Sometimes Clion would report exceptions with this plugin. Those exceptions are caused by a delay between the end of the cpplint.py execution and the Clion inspection system. For example, when cpplint.py was run by Clion, it finds a problem at line N. Suddenly, you delet all lines starting from N before the inspection system updates, then Clion would report an exception. I haven't found a good way to work around. If you do, please make a pull request.<br/>
         If you are using cygwin, use cygwin python package and fill with unix-style paths in the option dialog(for example, /usr/bin/python and /home/tools/cpplint.py).
     ]]></description>
 
