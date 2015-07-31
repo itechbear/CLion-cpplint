@@ -18,6 +18,10 @@ Usage
 Please note
 ===========
 
- - Sometimes Clion would report exceptions with this plugin. Those exceptions are caused by a delay between the end of the cpplint.py execution and the Clion inspection system. For example, when cpplint.py was run by Clion, it finds a problem at line N. Suddenly, you delet all lines starting from N before the inspection system updates, then Clion would report an exception. I haven't found a good way to work around. If you do, please make a pull request.
  - If you are using cygwin, use cygwin python package and fill with unix-style paths in the option dialog(for example, /usr/bin/python and /home/tools/cpplint.py).
 
+Change log
+==========
+
+ - 1.0.2 Fixed IndexOutOfBound exception.
+ - 1.0.0 Initial commit.
