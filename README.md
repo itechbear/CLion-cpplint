@@ -7,6 +7,11 @@ Features
  - Run cpplint.py on the fly when you are editing C++ source code.
  - Highlight corresponding lines with messages about which cpplint.py complains.
  - Cygwin environment is supported as well.
+
+Installation
+==========
+
+ - [jetbrains plugin repository](https://plugins.jetbrains.com/plugin/7871?pr=clion) 
  
 Usage
 =====
