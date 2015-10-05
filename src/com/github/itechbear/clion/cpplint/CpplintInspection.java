@@ -2,6 +2,7 @@ package com.github.itechbear.clion.cpplint;
 
 import com.github.itechbear.clion.cpplint.QuickFixes.QuickFixesManager;
 import com.github.itechbear.util.CygwinUtil;
+import com.github.itechbear.util.MinGWUtil;
 import com.intellij.codeInspection.*;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
@@ -26,22 +27,29 @@ public class CpplintInspection extends LocalInspectionTool {
     public ProblemDescriptor[] checkFile(@NotNull PsiFile file, @NotNull InspectionManager manager, boolean isOnTheFly) {
         List<ProblemDescriptor> descriptors = new ArrayList<ProblemDescriptor>();
 
+        // Determine whether this file is a C/C++ file.
         if (!CpplintLanguageType.isCFamily(file)) {
             return descriptors.toArray(new ProblemDescriptor[descriptors.size()]);
         }
 
+        // Format the path of the project root. Otherwise, cpplint would keep reporting header guard errors.
         String project_root = file.getProject().getBaseDir().getCanonicalPath();
         if (CygwinUtil.isCygwinEnvironment()) {
             project_root = CygwinUtil.toCygwinPath(project_root);
         }
-        String flag = "--root=" + project_root;
+
+        // Don't pass project root
+        String flag = "";
+        if (!MinGWUtil.isMinGWEnvironment()) {
+            flag += "--root=" + project_root;
+        }
         String cpp_file_path = file.getVirtualFile().getCanonicalPath();
         if (CygwinUtil.isCygwinEnvironment()) {
             cpp_file_path = CygwinUtil.toCygwinPath(cpp_file_path);
         }
         Scanner scanner = null;
         try {
-            String message = CpplintCommand.execute(flag + " " + cpp_file_path);
+            String message = CpplintCommand.execute(file.getProject(), flag, cpp_file_path);
             if (message.isEmpty()) {
                 return descriptors.toArray(new ProblemDescriptor[descriptors.size()]);
             }

@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>com.github.itechbear.clion.cpplint</id>
   <name>CLion-cpplint</name>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
   <vendor email="itechbear@gmail.com" url="https://github.com/itechbear">itechbear</vendor>
 
   <description><![CDATA[
@@ -12,7 +12,7 @@
       <b>Features:</b><br/>
         Run cpplint.py on the fly when you are editing C++ source code.<br/>
         Highlight corresponding lines with messages about which cpplint.py complains.<br/>
-        Cygwin environment is supported as well.<br/><br/>
+        Cygwin/MinGW environment is supported as well.<br/><br/>
 
       <b>Usage:</b><br/>
         Install this plugin.<br/>
@@ -20,11 +20,14 @@
         Enjoy developing!<br/><br/>
 
       <b>Please note:</b><br/>
-        If you are using cygwin, use cygwin python package and fill with unix-style paths in the option dialog(for example, /usr/bin/python and /home/tools/cpplint.py).
+        If you are using <b>cygwin</b>, use cygwin python package and fill with unix-style paths in the option panel(for example, /usr/bin/python and /home/tools/cpplint.py). <br/>
+        If you are using <b>mingw</b>, use windows python package and fill with windows-style paths in the option panel(for example, C:\Python27\python.exe and C:\cpplint.py).
     ]]></description>
 
   <change-notes><![CDATA[
-      Initial commit.
+      1.0.3 Add support for MinGW. Degrade jdk version to jdk 6 to make Mac OS X users happy.
+
+      Initial commit. <br /><br />
     ]]>
   </change-notes>
 

@@ -1,26 +1,45 @@
 package com.github.itechbear.clion.cpplint;
 
 import com.github.itechbear.util.CygwinUtil;
+import com.github.itechbear.util.MinGWUtil;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.wm.StatusBar;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by HD on 2015/1/1.
  */
 public class CpplintCommand {
-    public static String execute(String arg) throws IOException{
+    public static String execute(Project project, String... arg) throws IOException{
         List<String> args = new ArrayList<String>();
 
         String python = Settings.get(Option.OPTION_KEY_PYTHON);
         String cpplint = Settings.get(Option.OPTION_KEY_CPPLINT);
 
-        args.add(CygwinUtil.getBathPath());
-        args.add("-c");
-        args.add(python + " " + cpplint + " " + arg);
+        if (null == cpplint || cpplint.isEmpty()) {
+            StatusBar.Info.set("Please set path of cpplint.py first!", project);
+            return "";
+        }
+
+        if (!MinGWUtil.isMinGWEnvironment()) {
+            args.add(CygwinUtil.getBathPath());
+            args.add("-c");
+            String joinedArgs = python + " " + cpplint + " ";
+            for (String oneArg : arg) {
+                joinedArgs += oneArg + " ";
+            }
+            args.add(joinedArgs);
+        } else {
+            args.add(python);
+            args.add(cpplint);
+            Collections.addAll(args, arg);
+        }
 
         final Process  process = Runtime.getRuntime().exec(
                 args.toArray(new String[args.size()]));
