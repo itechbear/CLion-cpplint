@@ -23,10 +23,12 @@ Usage
 Please note
 ===========
 
- - If you are using cygwin, use cygwin python package and fill with unix-style paths in the option dialog(for example, /usr/bin/python and /home/tools/cpplint.py).
+ - For *Cygwin* users: use cygwin python package and fill with unix-style paths in the option dialog(for example, /usr/bin/python and /home/tools/cpplint.py).
+ - For *MinGW* users: use windows-style paths of python and cpplint.py(for example, C:\Python27\python.exe and C:\Users\user\cpplint.py).
 
 Change log
 ==========
 
+ - 1.0.3 Add support for MinGW. Degrade to JDK 6.
  - 1.0.2 Fixed IndexOutOfBound exception.
  - 1.0.0 Initial commit.
