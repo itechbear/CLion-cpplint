@@ -25,9 +25,9 @@
     ]]></description>
 
   <change-notes><![CDATA[
-      1.0.3 Add support for MinGW. Degrade jdk version to jdk 6 to make Mac OS X users happy.
+    1.0.3 Add support for MinGW. Degrade jdk version to jdk 6 to make Mac OS X users happy. <br /><br />
 
-      Initial commit. <br /><br />
+    Initial commit. <br /><br />
     ]]>
   </change-notes>
 
