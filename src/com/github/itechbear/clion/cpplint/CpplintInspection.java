@@ -41,12 +41,14 @@ public class CpplintInspection extends LocalInspectionTool {
     // Don't pass project root
     String flag = "";
     if (!MinGWUtil.isMinGWEnvironment()) {
-      flag += "--root=" + projectRoot;
+      flag += "--root=\"" + projectRoot + "\"";
     }
     String cppFilePath = file.getVirtualFile().getCanonicalPath();
     if (CygwinUtil.isCygwinEnvironment()) {
       cppFilePath = CygwinUtil.toCygwinPath(cppFilePath);
     }
+    cppFilePath = "\"" + cppFilePath + "\"";
+
     Scanner scanner = null;
     try {
       String message = CpplintCommand.execute(file.getProject(), flag, cppFilePath);
