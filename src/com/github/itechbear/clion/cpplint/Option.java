@@ -20,10 +20,12 @@ public class Option implements Configurable {
   private boolean modified = false;
   private JFilePicker jFilePickerPython;
   private JFilePicker jFilePickerCpplint;
+  private JTextField jTextCpplintOptions;
   private OptionModifiedListener listener = new OptionModifiedListener(this);
 
   public static final String OPTION_KEY_PYTHON = "python";
   public static final String OPTION_KEY_CPPLINT = "cpplint";
+  public static final String OPTION_KEY_CPPLINT_OPTIONS = "cpplintOptions";
 
   @Nls
   @Override
@@ -47,14 +49,19 @@ public class Option implements Configurable {
 
     jFilePickerPython = new JFilePicker("Python path:", "...");
     jFilePickerCpplint = new JFilePicker("cpplint.py path:", "...");
+    JLabel jLabelCpplintOptions = new JLabel("cpplint.py options:");
+    jTextCpplintOptions = new JTextField("", 39);
 
     reset();
 
     jFilePickerPython.getTextField().getDocument().addDocumentListener(listener);
     jFilePickerCpplint.getTextField().getDocument().addDocumentListener(listener);
+    jTextCpplintOptions.getDocument().addDocumentListener(listener);
 
     jPanel.add(jFilePickerPython);
     jPanel.add(jFilePickerCpplint);
+    jPanel.add(jLabelCpplintOptions);
+    jPanel.add(jTextCpplintOptions);
 
     return jPanel;
   }
@@ -72,6 +79,7 @@ public class Option implements Configurable {
   public void apply() throws ConfigurationException {
     Settings.set(OPTION_KEY_PYTHON, jFilePickerPython.getTextField().getText());
     Settings.set(OPTION_KEY_CPPLINT, jFilePickerCpplint.getTextField().getText());
+    Settings.set(OPTION_KEY_CPPLINT_OPTIONS, jTextCpplintOptions.getText());
     modified = false;
   }
 
@@ -83,6 +91,8 @@ public class Option implements Configurable {
     String cpplint = Settings.get(OPTION_KEY_CPPLINT);
     jFilePickerCpplint.getTextField().setText(cpplint);
 
+    String cpplintOptions = Settings.get(OPTION_KEY_CPPLINT_OPTIONS);
+    jTextCpplintOptions.setText(cpplintOptions);
     modified = false;
   }
 
@@ -90,6 +100,7 @@ public class Option implements Configurable {
   public void disposeUIResources() {
     jFilePickerPython.getTextField().getDocument().removeDocumentListener(listener);
     jFilePickerCpplint.getTextField().getDocument().removeDocumentListener(listener);
+    jTextCpplintOptions.getDocument().removeDocumentListener(listener);
   }
 
   private static class OptionModifiedListener implements DocumentListener {
