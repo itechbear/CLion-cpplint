@@ -21,6 +21,7 @@ public class CpplintCommand {
 
     String python = Settings.get(Option.OPTION_KEY_PYTHON);
     String cpplint = Settings.get(Option.OPTION_KEY_CPPLINT);
+    String cpplintOptions = Settings.get(Option.OPTION_KEY_CPPLINT_OPTIONS);
 
     if (null == cpplint || cpplint.isEmpty()) {
       StatusBar.Info.set("Please set path of cpplint.py first!", project);
@@ -30,7 +31,7 @@ public class CpplintCommand {
     if (!MinGWUtil.isMinGWEnvironment()) {
       args.add(CygwinUtil.getBathPath());
       args.add("-c");
-      String joinedArgs = python + " " + cpplint + " ";
+      String joinedArgs = python + " " + cpplint + " " + cpplintOptions + " ";
       for (String oneArg : arg) {
         joinedArgs += oneArg + " ";
       }
@@ -38,6 +39,7 @@ public class CpplintCommand {
     } else {
       args.add(python);
       args.add(cpplint);
+      Collections.addAll(args, cpplintOptions.split("\\s+"));
       Collections.addAll(args, arg);
     }
 
