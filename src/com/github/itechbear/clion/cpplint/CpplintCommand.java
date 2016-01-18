@@ -28,6 +28,12 @@ public class CpplintCommand {
       return "";
     }
 
+    // First time users will not have this Option set if they do not open the Settings
+    // UI yet.
+    if (null == cpplintOptions) {
+      cpplintOptions = "";
+    }
+
     if (!MinGWUtil.isMinGWEnvironment()) {
       args.add(CygwinUtil.getBathPath());
       args.add("-c");
