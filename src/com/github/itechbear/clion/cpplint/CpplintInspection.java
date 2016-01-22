@@ -82,7 +82,7 @@ public class CpplintInspection extends LocalInspectionTool {
         int line_start_offset = document.getLineStartOffset(lineNumber);
         int line_end_offset = document.getLineEndOffset(lineNumber);
         LocalQuickFixBase fix = QuickFixesManager.get(ruleName);
-        ProblemDescriptor problemDescriptor = manager.createProblemDescriptor(file, TextRange.create(line_start_offset, line_end_offset), errorMessage, ProblemHighlightType.GENERIC_ERROR_OR_WARNING, true, fix);
+        ProblemDescriptor problemDescriptor = manager.createProblemDescriptor(file, TextRange.create(line_start_offset, line_end_offset), errorMessage, ProblemHighlightType.WEAK_WARNING, true, fix);
         descriptors.add(problemDescriptor);
       }
     } catch (IOException e) {
