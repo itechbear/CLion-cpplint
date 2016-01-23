@@ -78,7 +78,7 @@ public class CpplintInspection extends LocalInspectionTool {
         lineNumber = (lineNumber > 0) ? (lineNumber - 1) : 0;
         String errorMessage = "cpplint: " + matcher.group(2);
         String ruleName = matcher.group(3);
-        int warning_level = Integer.parseInt(matcher.group(4), 10);
+        int confidence_score = Integer.parseInt(matcher.group(4), 10);
         int line_start_offset = document.getLineStartOffset(lineNumber);
         int line_end_offset = document.getLineEndOffset(lineNumber);
         LocalQuickFixBase fix = QuickFixesManager.get(ruleName);
