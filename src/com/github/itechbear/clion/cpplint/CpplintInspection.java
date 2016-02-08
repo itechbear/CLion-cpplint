@@ -81,8 +81,22 @@ public class CpplintInspection extends LocalInspectionTool {
         int confidence_score = Integer.parseInt(matcher.group(4), 10);
         int line_start_offset = document.getLineStartOffset(lineNumber);
         int line_end_offset = document.getLineEndOffset(lineNumber);
+
+        // Do not highlight empty whitespace prepended to lines.
+        String line_text = document.getImmutableCharSequence().subSequence(
+                line_start_offset, line_end_offset).toString();
+
+        final int numberOfPrependedSpaces = line_text.length() -
+                line_text.replaceAll("^\\s+","").length();
+
         LocalQuickFixBase fix = QuickFixesManager.get(ruleName);
-        ProblemDescriptor problemDescriptor = manager.createProblemDescriptor(file, TextRange.create(line_start_offset, line_end_offset), errorMessage, ProblemHighlightType.WEAK_WARNING, true, fix);
+        ProblemDescriptor problemDescriptor = manager.createProblemDescriptor(
+                file,
+                TextRange.create(line_start_offset + numberOfPrependedSpaces, line_end_offset),
+                errorMessage,
+                ProblemHighlightType.WEAK_WARNING,
+                true,
+                fix);
         descriptors.add(problemDescriptor);
       }
     } catch (IOException e) {
