@@ -13,6 +13,8 @@
         Run cpplint.py on the fly when you are editing C++ source code.<br/>
         Highlight corresponding lines with messages about which cpplint.py complains.<br/>
         Cygwin/MinGW environment is supported as well.<br/><br/>
+        For advanced cpplint features, such as setting project repository root for header guard checks, use the PyPI
+        hosted cpplint at https://pypi.python.org/pypi/cpplint.<br/>
 
       <b>Usage:</b><br/>
         Install this plugin.<br/>

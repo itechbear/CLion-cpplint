@@ -6,6 +6,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.StatusBar;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -49,8 +50,9 @@ public class CpplintCommand {
       Collections.addAll(args, arg);
     }
 
+    File cpplintWorkingDirectory = new File(project.getBaseDir().getCanonicalPath());
     final Process process = Runtime.getRuntime().exec(
-        args.toArray(new String[args.size()]));
+        args.toArray(new String[args.size()]), null, cpplintWorkingDirectory);
 
     final StringBuilder outString = new StringBuilder();
     Thread outThread = new Thread(new Runnable() {
