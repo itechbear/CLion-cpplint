@@ -2,6 +2,9 @@ package com.github.itechbear.clion.cpplint;
 
 import com.github.itechbear.util.CygwinUtil;
 import com.github.itechbear.util.MinGWUtil;
+import com.intellij.notification.Notification;
+import com.intellij.notification.NotificationType;
+import com.intellij.notification.Notifications;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.StatusBar;
 
@@ -38,19 +41,23 @@ public class CpplintCommand {
     if (!MinGWUtil.isMinGWEnvironment()) {
       args.add(CygwinUtil.getBathPath());
       args.add("-c");
-      String joinedArgs = python + " " + cpplint + " " + cpplintOptions + " ";
-      for (String oneArg : arg) {
-        joinedArgs += oneArg + " ";
-      }
+      String joinedArgs = '\"' + python + " " + cpplint + " " + cpplintOptions + " ";
+      for (String oneArg : arg)
+        joinedArgs += "\\\"" + oneArg + "\\\" ";
+      joinedArgs += '\"';
       args.add(joinedArgs);
     } else {
       args.add(python);
       args.add(cpplint);
       Collections.addAll(args, cpplintOptions.split("\\s+"));
-      Collections.addAll(args, arg);
+      for (String oneArg : arg)
+          args.add('\"' + oneArg + '\"');
     }
 
     File cpplintWorkingDirectory = new File(project.getBaseDir().getCanonicalPath());
+    StringBuilder fullPath = new StringBuilder();
+    for (String a : args)
+        fullPath.append(a).append(' ');
     final Process process = Runtime.getRuntime().exec(
         args.toArray(new String[args.size()]), null, cpplintWorkingDirectory);
 
