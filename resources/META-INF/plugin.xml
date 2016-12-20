@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>com.github.itechbear.clion.cpplint</id>
   <name>CLion-cpplint</name>
-  <version>1.0.4</version>
+  <version>1.0.5</version>
   <vendor email="itechbear@gmail.com" url="https://github.com/itechbear">itechbear</vendor>
 
   <description><![CDATA[
@@ -27,6 +27,8 @@
     ]]></description>
 
   <change-notes><![CDATA[
+    1.0.5 Bugfixes. See github issues #10,#11,#16. Thanks johnthagen and timothyolt! <br /><br />
+
     1.0.4 Bugfixes. Thanks to johnthagen and mherb! <br /><br />
 
     1.0.3 Add support for MinGW. Degrade jdk version to jdk 6 to make Mac OS X users happy. <br /><br />

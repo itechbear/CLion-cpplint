@@ -29,7 +29,8 @@ Please note
 Change log
 ==========
 
- - 1.0.4 Bugfixes. Thanks to johnthagen and mherb!
+ - 1.0.5 Bugfixes. See github issues #10,#11,#16. Thanks johnthagen and timothyolt!
+ - 1.0.4 Bugfixes. Thanks johnthagen and mherb!
  - 1.0.3 Add support for MinGW. Degrade to JDK 6.
  - 1.0.2 Fixed IndexOutOfBound exception.
  - 1.0.0 Initial commit.
