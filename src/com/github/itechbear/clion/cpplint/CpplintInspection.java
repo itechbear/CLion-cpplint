@@ -35,7 +35,6 @@ public class CpplintInspection extends LocalInspectionTool {
     if (CygwinUtil.isCygwinEnvironment()) {
       cppFilePath = CygwinUtil.toCygwinPath(cppFilePath);
     }
-    cppFilePath = "\"" + cppFilePath + "\"";
 
     Scanner scanner = null;
     try {
