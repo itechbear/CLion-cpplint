@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>com.github.itechbear.clion.cpplint</id>
   <name>CLion-cpplint</name>
-  <version>1.0.5</version>
+  <version>1.0.6</version>
   <vendor email="itechbear@gmail.com" url="https://github.com/itechbear">itechbear</vendor>
 
   <description><![CDATA[
@@ -27,6 +27,8 @@
     ]]></description>
 
   <change-notes><![CDATA[
+    1.0.6 Bugfix. Reverted a change that broke this plugin. <br /><br />
+
     1.0.5 Bugfixes. See github issues #10,#11,#16. Thanks johnthagen and timothyolt! <br /><br />
 
     1.0.4 Bugfixes. Thanks to johnthagen and mherb! <br /><br />
@@ -49,11 +51,11 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <!-- Add your extensions here -->
-      <localInspection implementationClass="com.github.itechbear.clion.cpplint.CpplintInspection"
-              displayName="cpplint inspection" groupName="C++: line" id="CpplintInspection" level="WARNING"
-              enabledByDefault="true"/>
-      <applicationConfigurable instance="com.github.itechbear.clion.cpplint.Option"
-              displayName="cpplint option"/>
+    <localInspection implementationClass="com.github.itechbear.clion.cpplint.CpplintInspection"
+                     displayName="cpplint inspection" groupName="C++: line" id="CpplintInspection" level="WARNING"
+                     enabledByDefault="true"/>
+    <applicationConfigurable instance="com.github.itechbear.clion.cpplint.Option"
+                             displayName="cpplint option"/>
   </extensions>
 
   <application-components>
