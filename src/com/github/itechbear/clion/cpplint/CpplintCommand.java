@@ -2,9 +2,6 @@ package com.github.itechbear.clion.cpplint;
 
 import com.github.itechbear.util.CygwinUtil;
 import com.github.itechbear.util.MinGWUtil;
-import com.intellij.notification.Notification;
-import com.intellij.notification.NotificationType;
-import com.intellij.notification.Notifications;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.StatusBar;
 
@@ -63,10 +60,6 @@ public class CpplintCommand {
       args.add(joinedArgs);
     }
 
-    StringBuilder fullPath = new StringBuilder();
-    for (String oneArg : args)
-      fullPath.append(oneArg).append(' ');
-    Notifications.Bus.notify(new Notification("cpplint", "dir debug", fullPath.toString(), NotificationType.INFORMATION));
     File cpplintWorkingDirectory = new File(project.getBaseDir().getCanonicalPath());
     final Process process = Runtime.getRuntime().exec(
         args.toArray(new String[args.size()]), null, cpplintWorkingDirectory);
