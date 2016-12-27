@@ -2,6 +2,9 @@ package com.github.itechbear.clion.cpplint;
 
 import com.github.itechbear.util.CygwinUtil;
 import com.github.itechbear.util.MinGWUtil;
+import com.intellij.notification.Notification;
+import com.intellij.notification.NotificationType;
+import com.intellij.notification.Notifications;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.StatusBar;
 
@@ -35,21 +38,36 @@ public class CpplintCommand {
       cpplintOptions = "";
     }
 
-    if (!MinGWUtil.isMinGWEnvironment()) {
-      args.add(CygwinUtil.getBathPath());
-      args.add("-c");
-      String joinedArgs = python + " " + cpplint + " " + cpplintOptions + " ";
-      for (String oneArg : arg) {
-        joinedArgs += oneArg + " ";
-      }
-      args.add(joinedArgs);
-    } else {
+    if (MinGWUtil.isMinGWEnvironment()) {
       args.add(python);
       args.add(cpplint);
       Collections.addAll(args, cpplintOptions.split("\\s+"));
       Collections.addAll(args, arg);
     }
+    else if (CygwinUtil.isCygwinEnvironment())
+    {
+      args.add(CygwinUtil.getBashPath());
+      args.add("-c");
+      String joinedArgs;
+      if (CygwinUtil.isCygwinEnvironment()){
+        joinedArgs = "\"\\\"" + python + "\\\" \\\"" + cpplint + "\\\" " + cpplintOptions + " ";
+        for (String oneArg : arg)
+          joinedArgs += "\\\"" + oneArg + "\\\" ";
+        joinedArgs += '\"';
+      }
 
+      else {
+        joinedArgs = "\"" + python + "\" \"" + cpplint + "\" " + cpplintOptions + " ";
+        for (String oneArg : arg)
+          joinedArgs += "\"" + oneArg + "\" ";
+      }
+      args.add(joinedArgs);
+    }
+
+    StringBuilder fullPath = new StringBuilder();
+    for (String oneArg : args)
+      fullPath.append(oneArg).append(' ');
+    Notifications.Bus.notify(new Notification("cpplint", "dir", fullPath.toString(), NotificationType.INFORMATION));
     File cpplintWorkingDirectory = new File(project.getBaseDir().getCanonicalPath());
     final Process process = Runtime.getRuntime().exec(
         args.toArray(new String[args.size()]), null, cpplintWorkingDirectory);

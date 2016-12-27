@@ -45,7 +45,7 @@ public class CygwinUtil {
    *
    * @return /usr/bin/bash
    */
-  public static String getBathPath() {
+  public static String getBashPath() {
     if (isCygwinEnvironment()) {
       return getCygwinRoot() + "\\bin\\bash.exe";
     }
