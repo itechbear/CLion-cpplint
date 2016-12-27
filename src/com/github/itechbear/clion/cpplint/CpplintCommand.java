@@ -44,7 +44,7 @@ public class CpplintCommand {
       Collections.addAll(args, cpplintOptions.split("\\s+"));
       Collections.addAll(args, arg);
     }
-    else if (CygwinUtil.isCygwinEnvironment())
+    else
     {
       args.add(CygwinUtil.getBashPath());
       args.add("-c");
@@ -55,7 +55,6 @@ public class CpplintCommand {
           joinedArgs += "\\\"" + oneArg + "\\\" ";
         joinedArgs += '\"';
       }
-
       else {
         joinedArgs = "\"" + python + "\" \"" + cpplint + "\" " + cpplintOptions + " ";
         for (String oneArg : arg)
@@ -67,7 +66,7 @@ public class CpplintCommand {
     StringBuilder fullPath = new StringBuilder();
     for (String oneArg : args)
       fullPath.append(oneArg).append(' ');
-    Notifications.Bus.notify(new Notification("cpplint", "dir", fullPath.toString(), NotificationType.INFORMATION));
+    Notifications.Bus.notify(new Notification("cpplint", "dir debug", fullPath.toString(), NotificationType.INFORMATION));
     File cpplintWorkingDirectory = new File(project.getBaseDir().getCanonicalPath());
     final Process process = Runtime.getRuntime().exec(
         args.toArray(new String[args.size()]), null, cpplintWorkingDirectory);
