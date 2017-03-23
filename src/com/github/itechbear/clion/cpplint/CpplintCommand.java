@@ -35,19 +35,29 @@ public class CpplintCommand {
       cpplintOptions = "";
     }
 
-    if (!MinGWUtil.isMinGWEnvironment()) {
-      args.add(CygwinUtil.getBathPath());
-      args.add("-c");
-      String joinedArgs = python + " " + cpplint + " " + cpplintOptions + " ";
-      for (String oneArg : arg) {
-        joinedArgs += oneArg + " ";
-      }
-      args.add(joinedArgs);
-    } else {
+    if (MinGWUtil.isMinGWEnvironment()) {
       args.add(python);
       args.add(cpplint);
       Collections.addAll(args, cpplintOptions.split("\\s+"));
       Collections.addAll(args, arg);
+    }
+    else
+    {
+      args.add(CygwinUtil.getBashPath());
+      args.add("-c");
+      String joinedArgs;
+      if (CygwinUtil.isCygwinEnvironment()){
+        joinedArgs = "\"\\\"" + python + "\\\" \\\"" + cpplint + "\\\" " + cpplintOptions + " ";
+        for (String oneArg : arg)
+          joinedArgs += "\\\"" + oneArg + "\\\" ";
+        joinedArgs += '\"';
+      }
+      else {
+        joinedArgs = "\"" + python + "\" \"" + cpplint + "\" " + cpplintOptions + " ";
+        for (String oneArg : arg)
+          joinedArgs += "\"" + oneArg + "\" ";
+      }
+      args.add(joinedArgs);
     }
 
     File cpplintWorkingDirectory = new File(project.getBaseDir().getCanonicalPath());
