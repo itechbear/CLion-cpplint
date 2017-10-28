@@ -18,7 +18,7 @@ Usage
 
  - Install this plugin.
  - Go to File -> Settings -> Other Settings -> cpplint option, fill in the <b>*absolute*</b> paths of python and cpplint.py
- - Enjoy developing!
+ - The plugin should start working when you open/edit C++ files. Don't bother finding menus/actions to run this plugin, because there're not. Enjoy developing!
 
 Please note
 ===========
