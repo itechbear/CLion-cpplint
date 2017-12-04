@@ -1,15 +1,5 @@
 package com.github.itechbear.clion.cpplint;
 
-import com.github.itechbear.clion.cpplint.QuickFixes.QuickFixesManager;
-import com.github.itechbear.util.CygwinUtil;
-import com.intellij.codeInspection.*;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.fileEditor.FileDocumentManager;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiFile;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,83 +7,97 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.github.itechbear.clion.cpplint.QuickFixes.QuickFixesManager;
+import com.github.itechbear.util.CygwinUtil;
+import com.intellij.codeInspection.InspectionManager;
+import com.intellij.codeInspection.LocalInspectionTool;
+import com.intellij.codeInspection.LocalQuickFixBase;
+import com.intellij.codeInspection.ProblemDescriptor;
+import com.intellij.codeInspection.ProblemHighlightType;
+import com.intellij.openapi.editor.Document;
+import com.intellij.openapi.fileEditor.FileDocumentManager;
+import com.intellij.openapi.util.TextRange;
+import com.intellij.psi.PsiFile;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 /**
  * Created by HD on 2015/1/1.
  */
 public class CpplintInspection extends LocalInspectionTool {
-  @Nullable
-  @Override
-  public ProblemDescriptor[] checkFile(@NotNull PsiFile file, @NotNull InspectionManager manager, boolean isOnTheFly) {
-    List<ProblemDescriptor> descriptors = new ArrayList<ProblemDescriptor>();
+    @Nullable
+    @Override
+    public ProblemDescriptor[] checkFile(@NotNull PsiFile file, @NotNull InspectionManager manager, boolean isOnTheFly) {
+        List<ProblemDescriptor> descriptors = new ArrayList<ProblemDescriptor>();
 
-    // Determine whether this file is a C/C++ file.
-    if (!CpplintLanguageType.isCFamily(file)) {
-      return descriptors.toArray(new ProblemDescriptor[descriptors.size()]);
-    }
-
-    String cppFilePath = file.getVirtualFile().getCanonicalPath();
-    if (CygwinUtil.isCygwinEnvironment()) {
-      cppFilePath = CygwinUtil.toCygwinPath(cppFilePath);
-    }
-
-    Scanner scanner = null;
-    try {
-      String message = CpplintCommand.execute(file.getProject(), cppFilePath);
-      if (message.isEmpty()) {
-        return descriptors.toArray(new ProblemDescriptor[descriptors.size()]);
-      }
-      scanner = new Scanner(message);
-
-      Document document = FileDocumentManager.getInstance().getDocument(file.getVirtualFile());
-      if (document == null) {
-        return descriptors.toArray(new ProblemDescriptor[descriptors.size()]);
-      }
-      Pattern pattern = Pattern.compile("^.+:([0-9]+):\\s+(.+)\\s+\\[([^\\]]+)+\\]\\s+\\[([0-9]+)\\]$");
-      String line;
-      while (scanner.hasNext()) {
-        line = scanner.nextLine();
-        Matcher matcher = pattern.matcher(line);
-        if (!matcher.matches()) {
-          continue;
+        // Determine whether this file is a C/C++ file.
+        if (!CpplintLanguageType.isCFamily(file)) {
+            return descriptors.toArray(new ProblemDescriptor[descriptors.size()]);
         }
-        int lineNumber = Integer.parseInt(matcher.group(1), 10);
-        int line_count = document.getLineCount();
-        if (0 == line_count) {
-          continue;
+
+        String cppFilePath = file.getVirtualFile().getCanonicalPath();
+        if (CygwinUtil.isCygwinEnvironment()) {
+            cppFilePath = CygwinUtil.toCygwinPath(cppFilePath);
         }
-        lineNumber = (lineNumber >= line_count) ? (line_count - 1) : lineNumber;
-        lineNumber = (lineNumber > 0) ? (lineNumber - 1) : 0;
-        String errorMessage = "cpplint: " + matcher.group(2);
-        String ruleName = matcher.group(3);
-        int confidence_score = Integer.parseInt(matcher.group(4), 10);
-        int line_start_offset = document.getLineStartOffset(lineNumber);
-        int line_end_offset = document.getLineEndOffset(lineNumber);
 
-        // Do not highlight empty whitespace prepended to lines.
-        String line_text = document.getImmutableCharSequence().subSequence(
-                line_start_offset, line_end_offset).toString();
+        Scanner scanner = null;
+        try {
+            String message = CpplintCommand.execute(file.getProject(), cppFilePath);
+            if (message.isEmpty()) {
+                return descriptors.toArray(new ProblemDescriptor[descriptors.size()]);
+            }
+            scanner = new Scanner(message);
 
-        final int numberOfPrependedSpaces = line_text.length() -
-                line_text.replaceAll("^\\s+","").length();
+            Document document = FileDocumentManager.getInstance().getDocument(file.getVirtualFile());
+            if (document == null) {
+                return descriptors.toArray(new ProblemDescriptor[descriptors.size()]);
+            }
+            Pattern pattern = Pattern.compile("^.+:([0-9]+):\\s+(.+)\\s+\\[([^\\]]+)+\\]\\s+\\[([0-9]+)\\]$");
+            String line;
+            while (scanner.hasNext()) {
+                line = scanner.nextLine();
+                Matcher matcher = pattern.matcher(line);
+                if (!matcher.matches()) {
+                    continue;
+                }
+                int lineNumber = Integer.parseInt(matcher.group(1), 10);
+                int line_count = document.getLineCount();
+                if (0 == line_count) {
+                    continue;
+                }
+                lineNumber = (lineNumber >= line_count) ? (line_count - 1) : lineNumber;
+                lineNumber = (lineNumber > 0) ? (lineNumber - 1) : 0;
+                String errorMessage = "cpplint: " + matcher.group(2);
+                String ruleName = matcher.group(3);
+                int confidence_score = Integer.parseInt(matcher.group(4), 10);
+                int line_start_offset = document.getLineStartOffset(lineNumber);
+                int line_end_offset = document.getLineEndOffset(lineNumber);
 
-        LocalQuickFixBase fix = QuickFixesManager.get(ruleName);
-        ProblemDescriptor problemDescriptor = manager.createProblemDescriptor(
-                file,
-                TextRange.create(line_start_offset + numberOfPrependedSpaces, line_end_offset),
-                errorMessage,
-                ProblemHighlightType.WEAK_WARNING,
-                true,
-                fix);
-        descriptors.add(problemDescriptor);
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    } finally {
-      if (scanner != null) {
-        scanner.close();
-      }
+                // Do not highlight empty whitespace prepended to lines.
+                String line_text = document.getImmutableCharSequence().subSequence(
+                        line_start_offset, line_end_offset).toString();
+
+                final int numberOfPrependedSpaces = line_text.length() -
+                        line_text.replaceAll("^\\s+", "").length();
+
+                LocalQuickFixBase fix = QuickFixesManager.get(ruleName);
+                ProblemDescriptor problemDescriptor = manager.createProblemDescriptor(
+                        file,
+                        TextRange.create(line_start_offset + numberOfPrependedSpaces, line_end_offset),
+                        errorMessage,
+                        ProblemHighlightType.WEAK_WARNING,
+                        true,
+                        fix);
+                descriptors.add(problemDescriptor);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (scanner != null) {
+                scanner.close();
+            }
+        }
+
+        return descriptors.toArray(new ProblemDescriptor[descriptors.size()]);
     }
-
-    return descriptors.toArray(new ProblemDescriptor[descriptors.size()]);
-  }
 }

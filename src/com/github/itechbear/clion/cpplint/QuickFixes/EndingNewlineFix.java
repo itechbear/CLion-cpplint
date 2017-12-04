@@ -11,17 +11,17 @@ import org.jetbrains.annotations.NotNull;
  * Created by HD on 2015/1/2.
  */
 public class EndingNewlineFix extends LocalQuickFixBase {
-  protected EndingNewlineFix() {
-    super(EndingNewlineFix.class.getSimpleName());
-  }
-
-  @Override
-  public void applyFix(@NotNull Project project, @NotNull ProblemDescriptor problemDescriptor) {
-    Document document = QuickFixesManager.getDocument(project, problemDescriptor);
-    if (document == null) {
-      return;
+    protected EndingNewlineFix() {
+        super(EndingNewlineFix.class.getSimpleName());
     }
-    document.insertString(document.getTextLength(), "\n");
-    FileDocumentManager.getInstance().saveDocument(document);
-  }
+
+    @Override
+    public void applyFix(@NotNull Project project, @NotNull ProblemDescriptor problemDescriptor) {
+        Document document = QuickFixesManager.getDocument(project, problemDescriptor);
+        if (document == null) {
+            return;
+        }
+        document.insertString(document.getTextLength(), "\n");
+        FileDocumentManager.getInstance().saveDocument(document);
+    }
 }

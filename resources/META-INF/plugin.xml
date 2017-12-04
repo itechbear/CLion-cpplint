@@ -1,7 +1,7 @@
-<idea-plugin version="2">
+<idea-plugin>
   <id>com.github.itechbear.clion.cpplint</id>
   <name>CLion-cpplint</name>
-  <version>1.0.6</version>
+  <version>1.0.7</version>
   <vendor email="itechbear@gmail.com" url="https://github.com/itechbear">itechbear</vendor>
 
   <description><![CDATA[
@@ -27,6 +27,8 @@
     ]]></description>
 
   <change-notes><![CDATA[
+    1.0.7 Bugfix. To be compatible with CLion 2017.3. <br /><br />
+
     1.0.6 Bugfix. Reverted a change that broke this plugin. <br /><br />
 
     1.0.5 Bugfixes. See github issues #10,#11,#16. Thanks johnthagen and timothyolt! <br /><br />
@@ -40,7 +42,7 @@
   </change-notes>
 
   <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
-  <idea-version since-build="140.0"/>
+  <idea-version since-build="172.4574.11"/>
 
   <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
        on how to target different products -->
