@@ -1,0 +1,33 @@
+plugins {
+    id 'org.jetbrains.intellij' version '0.3.4'
+}
+
+import org.apache.tools.ant.taskdefs.condition.Os;
+
+group 'com.github.itechbear'
+version '1.0.8'
+
+repositories {
+    mavenCentral()
+}
+
+intellij {
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        localPath 'D:\\ProgramFiles\\CLion'
+    } else if (Os.isFamily(Os.FAMILY_MAC)) {
+        localPath System.getProperty('user.home') + '/Applications/CLion.app/Contents'
+    } else if (Os.isFamily(Os.FAMILY_UNIX)) {
+        localPath System.getProperty('user.home') + '/Applications/CLion'
+    } else {
+        localPath ''
+    }
+
+    plugins = []
+    pluginName 'CLion-cpplint'
+}
+
+patchPluginXml {
+    changeNotes """
+      Add change notes here.<br>
+      <em>most HTML tags may be used</em>"""
+}
