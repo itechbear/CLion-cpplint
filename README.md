@@ -1,5 +1,5 @@
 # CLion-cpplint
-The first C++ lint plugin for Clion.
+The first C++ lint plugin for the jetbrains CLion IDE. Install this plugin, set python and cpplint paths in CLion preferences. It will automatically run cpplint against your C++ files while you write code, and show warnings in your editor.
 
 Features
 ========
