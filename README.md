@@ -36,6 +36,7 @@ Please note
 Change log
 ==========
 
+ - 1.0.9 Compatible with 2018.2
  - 1.0.8 Code improvements. Refactored code.
  - 1.0.7 Bugfix. To be compatible with CLion 2017.3.
  - 1.0.6 Bugfix. Reverted a change that broke this plugin.
