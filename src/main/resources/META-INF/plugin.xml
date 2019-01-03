@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>com.github.itechbear.clion.cpplint</id>
   <name>CLion-cpplint</name>
-  <version>1.0.9</version>
+  <version>1.1.0</version>
   <vendor email="itechbear@gmail.com" url="https://github.com/itechbear">itechbear</vendor>
 
   <description><![CDATA[
@@ -27,6 +27,8 @@
     ]]></description>
 
   <change-notes><![CDATA[
+    1.1.0 Compatible with 2018.3 <br /><br />
+
     1.0.9 Compatible with 2018.2 <br /><br />
 
     1.0.8 Code improvements. Refactored code <br /><br />
@@ -46,7 +48,7 @@
   </change-notes>
 
   <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
-  <idea-version since-build="182" until-build="182.*"/>
+  <idea-version since-build="183" until-build="183.*"/>
 
   <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
        on how to target different products -->
