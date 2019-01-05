@@ -1,5 +1,5 @@
 plugins {
-    id 'org.jetbrains.intellij' version '0.4.1'
+    id 'org.jetbrains.intellij' version '0.3.12'
 }
 
 group 'com.github.itechbear'
@@ -10,14 +10,26 @@ repositories {
 }
 
 intellij {
-    version 'CL-183.4925'
+    String osName = org.gradle.internal.os.OperatingSystem.current().getName();
+    String osVersion = org.gradle.internal.os.OperatingSystem.current().getVersion();
+    println "*** $osName $osVersion was detected."
+
+    if (org.gradle.internal.os.OperatingSystem.current().isLinux()) {
+        localPath System.getProperty('user.home') + '/Applications/CLion'
+    } else if (org.gradle.internal.os.OperatingSystem.current().isUnix()) {
+        localPath System.getProperty('user.home') + '/Applications/CLion'
+    } else if (org.gradle.internal.os.OperatingSystem.current().isWindows()) {
+        localPath 'D:\\ProgramFiles\\CLion'
+    } else if (org.gradle.internal.os.OperatingSystem.current().isMacOsX()) {
+        localPath System.getProperty('user.home') + '/Applications/CLion.app/Contents'
+    } else {
+        localPath ''
+    }
+
+    // downloadSources false
 
     plugins = []
     pluginName 'CLion-cpplint'
-}
-
-instrumentCode {
-    compilerVersion '183.4886.37'
 }
 
 patchPluginXml {
