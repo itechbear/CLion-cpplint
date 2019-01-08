@@ -175,7 +175,7 @@ public class CpplintRunner {
                 file,
                 TextRange.create(lineStartOffset + numberOfPrependedSpaces, lineEndOffset),
                 errorMessage,
-                ProblemHighlightType.WEAK_WARNING,
+                ProblemHighlightType.GENERIC_ERROR_OR_WARNING,
                 true,
                 fix);
     }
