@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.github.itechbear'
-version "${clionVersion}"
+version "${clionVersion}.1"
 
 repositories {
   mavenCentral()

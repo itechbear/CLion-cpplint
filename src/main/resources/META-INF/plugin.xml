@@ -63,7 +63,7 @@
                      displayName="cpplint inspection"
                      groupName="C++: line"
                      id="CpplintInspection"
-                     level="WEAK_WARNING"
+                     level="WEAK WARNING"
                      enabledByDefault="true"/>
     <applicationConfigurable instance="com.github.itechbear.clion.cpplint.Option"
                              displayName="cpplint option"/>
