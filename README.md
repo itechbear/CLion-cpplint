@@ -36,6 +36,7 @@ Please note
 Change log
 ==========
 
+ - 2019.3 Compatible with CLion 2019.3
  - 2019.1.1 Fix issue #27 (Can't find highlight display level: WEAK_WARNING)
  - 2019.1 Compatible with 2019.1
  - 1.1.0 Compatible with 2018.3
